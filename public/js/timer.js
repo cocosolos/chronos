@@ -19,8 +19,6 @@ function pageLoad() {
     stopButton.onclick = stop;
     soundButton.onclick = toggleSound;
 
-
-
 }
 function toggleSound(){
   if (playSound){
@@ -46,12 +44,19 @@ function stop() {
 function start() {
   sessionTone.play(); sessionTone.pause();
   breakTone.play(); breakTone.pause();
-  
   stopped = false;
   var now = 1;
   var endTime = defaultSession;
+  var initialOffset = '630';
+
   document.getElementById("pause").style.visibility="hidden";
   document.getElementById("stop").style.visibility="visible";
+
+
+
+
+
+
 
   var x = setInterval(function() {
     if (stopped){
@@ -64,8 +69,11 @@ function start() {
       var fSeconds = ("0" + seconds).slice(-2);
       document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
       now++;
+      $('.progress').css('stroke-dashoffset', initialOffset-(now*(initialOffset/defaultSession)));
+
       if (now > endTime) {
         clearInterval(x);
+        $('.progress').css('stroke-dashoffset', initialOffset);
         if (playSound){
           breakTone.play();
         }
@@ -78,6 +86,7 @@ function start() {
 function takeBreak() {
   var now = 0;
   var endTime = defaultBreak;
+  var initialOffset = '630';
 
   var x = setInterval(function() {
     if (stopped){
@@ -90,8 +99,10 @@ function takeBreak() {
       var fSeconds = ("0" + seconds).slice(-2);
       document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
       now++;
+      $('.progress').css('stroke-dashoffset', initialOffset-(now*(initialOffset/defaultBreak)));
       if (now > endTime) {
         clearInterval(x);
+        $('.progress').css('stroke-dashoffset', initialOffset);
         if (playSound){
           sessionTone.play();
         }

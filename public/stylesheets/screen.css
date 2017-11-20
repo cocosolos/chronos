@@ -3,6 +3,27 @@
   outline: none;
   background: none;
 }
+.item {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  z-index: -1;
+}
+
+
+svg {
+   -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.circle_animation {
+  stroke-dasharray: 440; /* this value is the pixel circumference of the circle */
+  stroke-dashoffset: 440;
+  transition: all 1s linear;
+}
 
 .heading {
   text-align: center;
@@ -25,7 +46,9 @@
   fill: none;
   stroke: rgb(21, 157, 175);
   stroke-width: 8px;
-  transition: stroke-dashoffset 0.7s;
+  stroke-dasharray: 630; /* this value is the pixel circumference of the circle */
+  stroke-dashoffset: 630;
+  transition: all 1s linear;
 }
 
 .pointer {
