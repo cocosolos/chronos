@@ -52,7 +52,6 @@ function toggleSound(){
   }
 }
 
-
 function stop() {
   stopped = true;
   var minutes = Math.floor(sessionTime/60);
@@ -68,21 +67,13 @@ function stop() {
 }
 
 function start() {
-  sessionTone.play(); sessionTone.pause();
   breakTone.play(); breakTone.pause();
   stopped = false;
   var now = 1;
   var endTime = sessionTime;
-
-
   document.getElementById("pause").style.visibility="hidden";
   document.getElementById("stop").style.visibility="visible";
-
-
-
-
-
-
+  $('.progress').css('stroke-dashoffset', initialOffset-(now*(initialOffset/sessionTime)));
 
   var x = setInterval(function() {
     if (stopped){
@@ -103,6 +94,7 @@ function start() {
         if (playSound){
           breakTone.play();
         }
+        window.alert("Time to take a break!");
         takeBreak();
       }
     }
@@ -110,8 +102,10 @@ function start() {
 }
 
 function takeBreak() {
+  sessionTone.play(); sessionTone.pause();
   var now = 0;
   var endTime = breakTime;
+  $('.progress').css('stroke-dashoffset', initialOffset-(now*(initialOffset/breakTime)));
 
   var x = setInterval(function() {
     if (stopped){
@@ -131,6 +125,7 @@ function takeBreak() {
         if (playSound){
           sessionTone.play();
         }
+        window.alert("Time to get back to work!");
         stop();
       }
     }
