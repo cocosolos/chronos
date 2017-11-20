@@ -1,14 +1,18 @@
 window.onload = pageLoad;
-var defaultSession = 10;
-var defaultBreak = 5;
+var defaultSession = 25*60;
+var defaultBreak = 5*60;
 var stopped = false;
 var playSound = true;
 var breakTone = new Audio('/media/beep.mp3');
 var sessionTone = new Audio('/media/beep2.mp3');
+var sessionTime = defaultSession;
+var breakTime = defaultBreak;
+var initialOffset = '630';
 
 function pageLoad() {
-    var minutes = Math.floor(defaultSession/60);
-    var seconds = Math.floor(defaultSession % 60);
+
+    var minutes = Math.floor(sessionTime/60);
+    var seconds = Math.floor(sessionTime % 60);
     var fSeconds = ("0" + seconds).slice(-2);
     document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
     var startButton = document.getElementById("pause");
@@ -18,8 +22,26 @@ function pageLoad() {
     startButton.onclick = start;
     stopButton.onclick = stop;
     soundButton.onclick = toggleSound;
+    document.getElementById("test").onclick = function(){
+      stop();
+        sessionTime=10;
+        breakTime=5;
+        var minutes = Math.floor(sessionTime/60);
+        var seconds = Math.floor(sessionTime % 60);
+        var fSeconds = ("0" + seconds).slice(-2);
+        document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
+    };
+    document.getElementById("default").onclick = function(){
+      stop();
+        sessionTime=defaultSession;
+        breakTime=defaultBreak;
+        var minutes = Math.floor(sessionTime/60);
+        var seconds = Math.floor(sessionTime % 60);
+        var fSeconds = ("0" + seconds).slice(-2);
+        document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
+    };
+  }
 
-}
 function toggleSound(){
   if (playSound){
     playSound = false;
@@ -33,9 +55,13 @@ function toggleSound(){
 
 function stop() {
   stopped = true;
-  var minutes = Math.floor(defaultSession/60);
-  var seconds = Math.floor(defaultSession % 60);
+  var minutes = Math.floor(sessionTime/60);
+  var seconds = Math.floor(sessionTime % 60);
   var fSeconds = ("0" + seconds).slice(-2);
+//  sessionTime = defaultSession;
+//  breakTime = defaultBreak;
+  $('.progress').css('stroke-dashoffset', initialOffset);
+  document.getElementById("test").checked = false;
   document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
   document.getElementById("pause").style.visibility="visible";
   document.getElementById("stop").style.visibility="hidden";
@@ -46,8 +72,8 @@ function start() {
   breakTone.play(); breakTone.pause();
   stopped = false;
   var now = 1;
-  var endTime = defaultSession;
-  var initialOffset = '630';
+  var endTime = sessionTime;
+
 
   document.getElementById("pause").style.visibility="hidden";
   document.getElementById("stop").style.visibility="visible";
@@ -69,7 +95,7 @@ function start() {
       var fSeconds = ("0" + seconds).slice(-2);
       document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
       now++;
-      $('.progress').css('stroke-dashoffset', initialOffset-(now*(initialOffset/defaultSession)));
+      $('.progress').css('stroke-dashoffset', initialOffset-(now*(initialOffset/sessionTime)));
 
       if (now > endTime) {
         clearInterval(x);
@@ -85,8 +111,7 @@ function start() {
 
 function takeBreak() {
   var now = 0;
-  var endTime = defaultBreak;
-  var initialOffset = '630';
+  var endTime = breakTime;
 
   var x = setInterval(function() {
     if (stopped){
@@ -99,19 +124,14 @@ function takeBreak() {
       var fSeconds = ("0" + seconds).slice(-2);
       document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
       now++;
-      $('.progress').css('stroke-dashoffset', initialOffset-(now*(initialOffset/defaultBreak)));
+      $('.progress').css('stroke-dashoffset', initialOffset-(now*(initialOffset/breakTime)));
       if (now > endTime) {
         clearInterval(x);
         $('.progress').css('stroke-dashoffset', initialOffset);
         if (playSound){
           sessionTone.play();
         }
-        minutes = Math.floor(defaultSession/60);
-        seconds = Math.floor(defaultSession % 60);
-        fSeconds = ("0" + seconds).slice(-2);
-        document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
-        document.getElementById("pause").style.visibility="visible";
-        document.getElementById("stop").style.visibility="hidden";
+        stop();
       }
     }
   }, 1000); // end of interval
