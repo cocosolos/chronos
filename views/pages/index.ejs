@@ -7,7 +7,7 @@
 <body>
 
   <div class="options">
-    <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-volume-off"
+    <button type="button" class="btn btn-default btn-lg" id="sound" style="border-style:none;"><span class="glyphicon glyphicon-volume-off"
       style="color:rgb(107, 107, 107);"
     ></span></button>
     <button type="button" id="mute" class="btn btn-default btn-lg" data-toggle="modal" data-target="#optionsModal"
@@ -16,7 +16,7 @@
     ></span></button>
   </div>
   <div class="heading">
-    <h1>Welcome to Chronos!!</h1>
+    <h1>Welcome to Chronos!</h1>
 </div>
 
 <div class="circleTimer">
@@ -56,62 +56,17 @@
 
 
 <div class="timerControl">
-<div class="remainingTime" id="remainingTime">25:00
+<div class="remainingTime" id="remainingTime">
 </div>
 
-
-
-<script>
-window.onload = pageLoad;
-
-function pageLoad() {
-    var startButton = document.getElementById("pause");
-
-    startButton.onclick = alertMe;
-}
-
-function alertMe() {
-  // Set the date we're counting down to
-  var startTime = new Date().getTime();
-  var endTime = new Date(startTime + 25*60*1000);
-
-  // Update the count down every 1 second
-  var x = setInterval(function() {
-
-    // Get todays date and time
-    var now = new Date().getTime();
-
-    // Find the distance between now an the count down date
-    var distance = endTime - now;
-
-    // Time calculations for days, hours, minutes and seconds
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    // Display the result in the element with id="demo"
-    document.getElementById("remainingTime").innerHTML = minutes + "m " + seconds + "s ";
-
-    // If the count down is finished, write some text
-    if (distance < 0) {
-      clearInterval(x);
-      document.getElementById("demo").innerHTML = "EXPIRED";
-    }
-  }, 1000);
-}
-
-
-</script>
-
-
-
-
-
 <button class="play" id="pause"></button>
+<button class="glyphicon glyphicon-stop" id="stop"></button>
 </div>
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/timer.js"></script>
   <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
