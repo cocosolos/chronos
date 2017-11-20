@@ -19,6 +19,8 @@ function pageLoad() {
     stopButton.onclick = stop;
     soundButton.onclick = toggleSound;
 
+
+
 }
 function toggleSound(){
   if (playSound){
@@ -42,6 +44,9 @@ function stop() {
 }
 
 function start() {
+  sessionTone.play(); sessionTone.pause();
+  breakTone.play(); breakTone.pause();
+  
   stopped = false;
   var now = 1;
   var endTime = defaultSession;
