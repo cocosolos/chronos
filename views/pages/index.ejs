@@ -19,16 +19,24 @@
     ></span></button>
   </div>
 
+  <div class="container">
+  <div class="circleTimer">
+    <svg width="500" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(110,110)">
+        <circle r="100" class="base" id="base"/>
+        <g >
+          <circle r="100" class="progress" id="progress"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div class="timerControl">
+    <div class="remainingTime" id="remainingTime">--:--
+    </div>
 
-<div class="circleTimer">
-<svg width="500" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-  <g transform="translate(110,110)">
-     <circle r="100" class="base"/>
-     <g >
-        <circle r="100" class="progress" id="progress"/>
-     </g>
-  </g>
-</svg>
+    <button class="play" id="pause"></button>
+    <button class="stop" id="stop" style="visibility: hidden;"></button>
+  </div>
 </div>
 
   <!-- Modal -->
@@ -73,18 +81,13 @@
   </div>
 
 
-<div class="timerControl">
-<div class="remainingTime" id="remainingTime">--:--
-</div>
 
-<button class="play" id="pause"></button>
-<button class="stop" id="stop" style="visibility: hidden;"></button>
-</div>
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/timer.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+
+  <script src="/js/timer.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,6 +1,15 @@
 @charset "utf-8";
-body{
-  min-width: 500px;
+
+.container {
+  width: 70%;
+  margin: 10px auto;
+  text-align:center;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .notransition {
   -webkit-transition: none !important;
@@ -53,13 +62,13 @@ svg {
 
 .base {
   fill: none;
-  stroke: #B6B6B6;
-  stroke-width: 8px;
+  stroke: #C50105;
+  stroke-width: 7.5px;
 }
 
 .progress {
   fill: none;
-  stroke: #C50105;
+  stroke: #09A101;
   /*stroke: rgb(21, 157, 175);*/
   stroke-width: 8px;
   stroke-dasharray: 630; /* this value is the pixel circumference of the circle */

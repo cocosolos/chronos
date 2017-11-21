@@ -148,13 +148,16 @@ function stop() {
   stopped = true;
   clearInterval(interval);
   reset();
+  document.getElementById("base").style.stroke = '#C50105';
+  document.getElementById("progress").style.stroke = '#09A101';
   document.getElementById("pause").style.visibility="visible";
   document.getElementById("stop").style.visibility="hidden";
 }
 
 function start() {
   $(".progress").removeClass("notransition");
-  document.getElementById("progress").style.stroke = '#C50105';
+  document.getElementById("base").style.stroke = '#C50105';
+  document.getElementById("progress").style.stroke = '#09A101';
   breakTone.play(); breakTone.pause();
   stopped = false;
   var now = 0;
@@ -170,7 +173,6 @@ function start() {
       update(now, sessionTime);
       if (now == sessionTime) {
         clearInterval(interval);
-        $(".progress").addClass("notransition");
         reset();
         if (playSound){
           breakTone.play();
@@ -183,7 +185,8 @@ function start() {
 
 function takeBreak() {
   $(".progress").removeClass("notransition");
-  document.getElementById("progress").style.stroke = '#09A101';
+  document.getElementById("base").style.stroke = '#09A101';
+  document.getElementById("progress").style.stroke = '#C50105';
   sessionTone.play(); sessionTone.pause();
   stopped = false;
   var now = 0;
