@@ -42,24 +42,31 @@
           <h4 class="modal-title">Options</h4>
         </div>
         <div class="modal-body">
-          <form>
+      <!--    <form>
             Session Length (in seconds):<br>
             <input type="number" id="customSession" min="1" oninput="validity.valid||(value='');"><br>
             Break Length (in seconds):<br>
             <input type="number" id="customBreak" min="1" oninput="validity.valid||(value='');"><br><br>
-          </form>
-        <!--  <form>
+          </form>-->
+          <form>
+
             Session Length (in minutes):<br>
-            <input type="number" id="customSession" value="25" min="1" max="1440" oninput="validity.valid||(value='');"><br>
+            <input type="number" id="customSession" value="25" min="1" oninput="validity.valid||(value='');"><br>
             Break Length (in minutes):<br>
-            <input type="number" id="customBreak" value="5" min="1" max="1440" oninput="validity.valid||(value='');"><br><br>
-          </form> -->
+            <input type="number" id="customBreak" value="5" min="1" oninput="validity.valid||(value='');"><br><br>
+
+          </form>
           <button type="button" id="setCustom" class="btn btn-default">Set Custom</button>
           <button type="button" id="default" class="btn btn-default">Default</button>
           <button type="button" id="test" class="btn btn-default">Test</button>
+
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <div class="modal-footer" style="float:left;"><p>Loop:</p>
+          <input type="checkbox" id="loop" class="cbx hidden"/>
+          <label for="loop" class="lbl"></label>
+        </div>
+        <div class="modal-footer"><br>
+          <button type="button" class="btn btn-default" data-dismiss="modal" style="align:bottom;">Close</button>
         </div>
       </div>
     </div>

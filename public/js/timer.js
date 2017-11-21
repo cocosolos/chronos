@@ -42,8 +42,10 @@ function setDefault(){
   stop();
   sessionTime=defaultSession;
   breakTime=defaultBreak;
-  document.getElementById("customSession").value = sessionTime;
-  document.getElementById("customBreak").value = breakTime;
+  //document.getElementById("customSession").value = sessionTime;
+  document.getElementById("customSession").value = sessionTime/60;
+  //document.getElementById("customBreak").value = breakTime;
+  document.getElementById("customBreak").value = breakTime/60;
   var hours = Math.floor((sessionTime/60)/60);
   var minutes = Math.floor((sessionTime/60)%60);
   var seconds = Math.floor(sessionTime % 60);
@@ -59,15 +61,15 @@ function setDefault(){
 
 function setCustom(){
   stop();
-  var customSession = document.getElementById("customSession").value;
-  //var customSession = document.getElementById("customSession").value*60;
-  var customBreak = document.getElementById("customBreak").value;
-  //var customBreak = document.getElementById("customBreak").value*60;
+  //var customSession = document.getElementById("customSession").value;
+  var customSession = document.getElementById("customSession").value*60;
+  //var customBreak = document.getElementById("customBreak").value;
+  var customBreak = document.getElementById("customBreak").value*60;
   if (customBreak == '' || customSession == ''){
-    document.getElementById("customSession").value = sessionTime;
-    //document.getElementById("customSession").value = sessionTime/60;
-    document.getElementById("customBreak").value = breakTime;
-    //document.getElementById("customBreak").value = breakTime/60;
+    //document.getElementById("customSession").value = sessionTime;
+    document.getElementById("customSession").value = sessionTime/60;
+    //document.getElementById("customBreak").value = breakTime;
+    document.getElementById("customBreak").value = breakTime/60;
     window.alert("Both fields are required.");
     return;
   }
@@ -200,8 +202,15 @@ function takeBreak() {
         if (playSound){
           sessionTone.play();
         }
-        window.alert("Time to work!");
-        stop();
+      //  window.alert("Time to work!");
+        if (document.getElementById("loop").checked){
+          $(".progress").addClass("notransition");
+          reset();
+          start();
+        }
+        else{
+          stop();
+        }
       }
     }
   }, 1000); // end of interval
