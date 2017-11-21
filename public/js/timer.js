@@ -96,10 +96,12 @@ function toggleSound(){
   if (playSound){
     playSound = false;
     document.getElementById("sound").style.backgroundColor = "#e5e5e5";
+    document.getElementById("soundButton").className ="glyphicon glyphicon-volume-off";
   }
   else{
     playSound = true;
     document.getElementById("sound").style.backgroundColor = "#FFFFFF";
+    document.getElementById("soundButton").className ="glyphicon glyphicon-volume-up";
   }
 }
 
