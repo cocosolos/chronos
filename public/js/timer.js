@@ -1,4 +1,6 @@
 window.onload = pageLoad;
+var maxSeconds = 86400;
+var maxMinutes = 1440;
 var defaultSession = 25*60; // 25 mins
 var defaultBreak = 5*60; // 5 mins
 var sessionTime = defaultSession;
@@ -8,6 +10,7 @@ var playSound = true;
 var breakTone = new Audio('/media/beep.mp3');
 var sessionTone = new Audio('/media/beep.mp3');
 var initialOffset = '630';
+var interval;
 
 function pageLoad() {
   var startButton = document.getElementById("pause");
@@ -29,7 +32,7 @@ function setTest(){ // 10 sec / 5 sec timers for testing
   stop();
   sessionTime=10;
   breakTime=5;
-  var minutes = Math.floor(sessionTime/60);
+  var minutes = Math.floor((sessionTime/60)%60);
   var seconds = Math.floor(sessionTime % 60);
   var fSeconds = ("0" + seconds).slice(-2);
   document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
@@ -39,27 +42,54 @@ function setDefault(){
   stop();
   sessionTime=defaultSession;
   breakTime=defaultBreak;
-  var minutes = Math.floor(sessionTime/60);
+  document.getElementById("customSession").value = sessionTime;
+  document.getElementById("customBreak").value = breakTime;
+  var hours = Math.floor((sessionTime/60)/60);
+  var minutes = Math.floor((sessionTime/60)%60);
   var seconds = Math.floor(sessionTime % 60);
   var fSeconds = ("0" + seconds).slice(-2);
-  document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
+  if (hours > 0){
+    var fMinutes = ("0" + minutes).slice(-2);
+    document.getElementById("remainingTime").innerHTML = hours+":"+fMinutes+":"+fSeconds;
+  }
+  else{
+    document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
+  }
 }
 
 function setCustom(){
   stop();
   var customSession = document.getElementById("customSession").value;
+  //var customSession = document.getElementById("customSession").value*60;
   var customBreak = document.getElementById("customBreak").value;
+  //var customBreak = document.getElementById("customBreak").value*60;
   if (customBreak == '' || customSession == ''){
+    document.getElementById("customSession").value = sessionTime;
+    //document.getElementById("customSession").value = sessionTime/60;
+    document.getElementById("customBreak").value = breakTime;
+    //document.getElementById("customBreak").value = breakTime/60;
     window.alert("Both fields are required.");
     return;
   }
   sessionTime = customSession;
   breakTime = customBreak;
-
-  var minutes = Math.floor(sessionTime/60);
+  if (sessionTime > maxSeconds){
+    sessionTime = maxSeconds;
+  }
+  if (breakTime > maxSeconds){
+    breakTime = maxSeconds;
+  }
+  var hours = Math.floor((sessionTime/60)/60);
+  var minutes = Math.floor((sessionTime/60)%60);
   var seconds = Math.floor(sessionTime % 60);
   var fSeconds = ("0" + seconds).slice(-2);
-  document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
+  if (hours > 0){
+    var fMinutes = ("0" + minutes).slice(-2);
+    document.getElementById("remainingTime").innerHTML = hours+":"+fMinutes+":"+fSeconds;
+  }
+  else{
+    document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
+  }
 }
 
 function toggleSound(){
@@ -75,10 +105,17 @@ function toggleSound(){
 
 function reset(){
   $(".progress").addClass("notransition");
-  var minutes = Math.floor(sessionTime/60);
+  var hours = Math.floor((sessionTime/60)/60);
+  var minutes = Math.floor((sessionTime/60)%60);
   var seconds = Math.floor(sessionTime % 60);
   var fSeconds = ("0" + seconds).slice(-2);
-  document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
+  if (hours > 0){
+    var fMinutes = ("0" + minutes).slice(-2);
+    document.getElementById("remainingTime").innerHTML = hours+":"+fMinutes+":"+fSeconds;
+  }
+  else{
+    document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
+  }
   setTimeout(function(){$('.progress').css('stroke-dashoffset', initialOffset)},1);
 }
 
@@ -88,16 +125,24 @@ function update(now, time){
   }
   else{
     var distance = time - now;
-    var minutes = Math.floor(distance/60);
+    var hours = Math.floor((distance/60)/60);
+    var minutes = Math.floor((distance/60)%60);
     var seconds = Math.floor(distance % 60);
     var fSeconds = ("0" + seconds).slice(-2);
-    document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
+    if (hours > 0){
+      var fMinutes = ("0" + minutes).slice(-2);
+      document.getElementById("remainingTime").innerHTML = hours+":"+fMinutes+":"+fSeconds;
+    }
+    else{
+      document.getElementById("remainingTime").innerHTML = minutes+":"+fSeconds;
+    }
     $('.progress').css('stroke-dashoffset', initialOffset-((now+1)*(initialOffset/time)));
   }
 }
 
 function stop() {
   stopped = true;
+  clearInterval(interval);
   reset();
   document.getElementById("pause").style.visibility="visible";
   document.getElementById("stop").style.visibility="hidden";
@@ -105,21 +150,22 @@ function stop() {
 
 function start() {
   $(".progress").removeClass("notransition");
+  document.getElementById("progress").style.stroke = '#C50105';
   breakTone.play(); breakTone.pause();
   stopped = false;
   var now = 0;
   document.getElementById("pause").style.visibility="hidden";
   document.getElementById("stop").style.visibility="visible";
   update(now, sessionTime);
-  var x = setInterval(function() {
+  interval = setInterval(function() {
     if (stopped){
-      clearInterval(x);
+      clearInterval(interval);
     }
     if (!stopped){
       now++;
       update(now, sessionTime);
       if (now == sessionTime) {
-        clearInterval(x);
+        clearInterval(interval);
         $(".progress").addClass("notransition");
         reset();
         if (playSound){
@@ -133,21 +179,22 @@ function start() {
 
 function takeBreak() {
   $(".progress").removeClass("notransition");
+  document.getElementById("progress").style.stroke = '#09A101';
   sessionTone.play(); sessionTone.pause();
   stopped = false;
   var now = 0;
   document.getElementById("pause").style.visibility="hidden";
   document.getElementById("stop").style.visibility="visible";
   update(now, breakTime);
-  var x = setInterval(function() {
+  interval = setInterval(function() {
     if (stopped){
-      clearInterval(x);
+      clearInterval(interval);
     }
     if (!stopped){
       now++;
       update(now, breakTime);
       if (now == breakTime) {
-        clearInterval(x);
+        clearInterval(interval);
         if (playSound){
           sessionTone.play();
         }

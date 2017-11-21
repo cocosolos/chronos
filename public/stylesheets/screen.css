@@ -37,7 +37,8 @@ svg {
 
 .heading {
   text-align: center;
-  color: rgb(8, 192, 174);
+  color: #09A101;
+  /*color: rgb(8, 192, 174);*/
   margin-bottom: 40px;
 }
 
@@ -54,7 +55,8 @@ svg {
 
 .progress {
   fill: none;
-  stroke: rgb(21, 157, 175);
+  stroke: #C50105;
+  /*stroke: rgb(21, 157, 175);*/
   stroke-width: 8px;
   stroke-dasharray: 630; /* this value is the pixel circumference of the circle */
   stroke-dashoffset: 630;
