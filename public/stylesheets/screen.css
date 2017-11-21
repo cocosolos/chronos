@@ -2,6 +2,13 @@
 body{
   min-width: 500px;
 }
+.notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  -ms-transition: none !important;
+  transition: none !important;
+}
 .btn:focus {
   outline: none;
   background: none;
