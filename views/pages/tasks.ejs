@@ -10,12 +10,13 @@
             <input type="text" name="desc" value="Make a task." oninput="validity.valid||(value='');" required><br>
             Time to complete (in minutes):<br>
             <input type="number" name="time" value="25" min="1" oninput="validity.valid||(value='');" required><br><br>
-          <!--  <p>Complete:</p>
-            <input type="checkbox" name="complete" class="cbx hidden"/>
-            <label for="complete" class="lbl"></label><br> -->
+            <p>Complete:</p>
+            <input type="checkbox" name="comp" id="comp" class="cbx hidden"/>
+            <label for="comp" class="lbl"></label>
             <button type="submit" id="save" class="btn btn-default">Save</button>
 
           </form>
+
             <button type="button" id="delete" class="btn btn-default">Delete</button>
             <button type="button" id="cancel" class="btn btn-default">Cancel</button>
 
