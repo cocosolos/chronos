@@ -5,16 +5,16 @@ var app = express();
 
 // Corey
 var tasks = require('./routes/tasks');
-var bodyParser = require('body-parser');
-var mongoose = require("mongoose");
+var bodyParser = require('body-parser'); // required to parse data from a view
+var mongoose = require("mongoose"); // mongodb framework
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost:27017/");
-var taskSchema = new mongoose.Schema({
+mongoose.connect("mongodb://user:pass@ds125489.mlab.com:25489/heroku_shdsmcw3"); // personal login removed
+var taskSchema = new mongoose.Schema({ // defines the object to insert in db
  desc: String,
  time: Number,
  comp: Boolean
 });
-var Task = mongoose.model("Task", taskSchema);
+var Task = mongoose.model("Task", taskSchema); // create an object using the schema
 //
 
 
@@ -27,21 +27,22 @@ express()
   .get('/', (req, res) => res.render('pages/index'))
 
   // Corey
-  .get('/tasks', (req, res) => res.render('pages/tasks'))
-  .post("/addtask", function (req, res)  {
+  // handle requests to and from the tasks page
+  .get('/tasks', (req, res) => res.render('pages/tasks')) // requests to view
+  .post("/addtask", function (req, res)  { // addtask post from view
   if (req.body.desc &&
     req.body.time) {
-    var taskData = {
+    var taskData = { // create taskData object with data from post
       desc: req.body.desc,
       time: req.body.time,
       comp: Boolean(req.body.comp)
     }
-    //insert data into the db
-    Task.create(taskData, function (err, tasks) {
+    // insert data into the db
+    Task.create(taskData, function (err, tasks) { // add the data from taskData to the tasks collection in db
       if (err) {
         return next(err)
       } else {
-        return res.redirect('/tasks');
+        return res.redirect('/'); // redirect to index view on success
       }
     });
   }

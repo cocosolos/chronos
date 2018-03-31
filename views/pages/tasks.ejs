@@ -7,23 +7,15 @@
 <body>
 <br>
           <form method="post" action="/addtask">
-            <input type="text" name="desc" value="Make a task." oninput="validity.valid||(value='');" required><br>
+            Task:<br>
+            <input type="text" name="desc" value="Make a task." oninput="validity.valid||(value='');" required><br><br>
             Time to complete (in minutes):<br>
             <input type="number" name="time" value="25" min="1" oninput="validity.valid||(value='');" required><br><br>
             <p>Complete:</p>
             <input type="checkbox" name="comp" id="comp" class="cbx hidden"/>
-            <label for="comp" class="lbl"></label>
+            <label for="comp" class="lbl"></label><br>
             <button type="submit" id="save" class="btn btn-default">Save</button>
-
           </form>
 
-            <button type="button" id="delete" class="btn btn-default">Delete</button>
-            <button type="button" id="cancel" class="btn btn-default">Cancel</button>
-
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-
-  <script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
