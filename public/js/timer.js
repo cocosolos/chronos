@@ -1,3 +1,11 @@
+/*
+  timer.js
+  Corey Sotiropoulos
+  11/20/17
+
+  Core timer functionality
+*/
+
 window.onload = pageLoad;
 var maxSeconds = 86400;
 var maxMinutes = 1440;

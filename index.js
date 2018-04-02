@@ -8,7 +8,7 @@ var tasks = require('./routes/tasks');
 var bodyParser = require('body-parser'); // required to parse data from a view
 var mongoose = require("mongoose"); // mongodb framework
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://public:public@ds125489.mlab.com:25489/heroku_shdsmcw3"); // personal login removed
+mongoose.connect("mongodb://user:pass@ds125489.mlab.com:25489/heroku_shdsmcw3"); // personal login removed
 var taskSchema = new mongoose.Schema({ // defines the object to insert in db
  desc: String,
  time: Number,
@@ -26,8 +26,8 @@ var userSchema = new mongoose.Schema({
 });
 
 // hash the password for each user before entered in the db
-userSchema.pre('validate', function (next) {
-	let user = this;		
+/* userSchema.pre('validate', function (next) {
+	let user = this;
 	bcrypt.hash(user.pw, 10, function (err, hash){
 		if (err) {
 			return next(err);
@@ -35,7 +35,7 @@ userSchema.pre('validate', function (next) {
 		user.pw = hash;
 		next();
 	})
-});
+}); */
 
 // model called 'users' to be added to db
 let User = mongoose.model('users', userSchema);
@@ -72,8 +72,8 @@ express()
     });
   }
   })
-  
-  
+
+
 	// Andrew
 	// register users
 	.get('/register', (req, res) => res.render('pages/register'))
@@ -87,8 +87,8 @@ express()
 			email: req.body.email,
 			pw: req.body.pw
 		};
-		
-		User.create(newUser, function(err, userReg) {
+
+		User.create(newUser, function(err, users) {
 			if(err) {
 				return next(err)
 			} else {
@@ -103,5 +103,5 @@ express()
 		console.log(req.body.pw);
 	}
   })
-  
+
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
