@@ -77,26 +77,30 @@ express()
 	// Andrew
 	// register users
 	.get('/register', (req, res) => res.render('pages/register'))
-	.post('/addUser', function (req, res) {
+	.post("/adduser", function (req, res) {
 	if (req.body.email &&
 	req.body.username &&
 	req.body.pw) {
 		// create newUser to be added to database
-		var newUser = new User({
+		var newUser = {
 			username: req.body.username,
 			email: req.body.email,
 			pw: req.body.pw
-		});
+		};
 		
 		User.create(newUser, function(err, userReg) {
 			if(err) {
-				// reload register page if error
 				return next(err)
 			} else {
 				// return to index on success
 				return res.redirect('/');
 			}
 		});
+	}
+	else {
+		console.log(req.body.email);
+		console.log(req.body.username);
+		console.log(req.body.pw);
 	}
   })
   
