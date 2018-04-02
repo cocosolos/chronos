@@ -18,6 +18,7 @@ var Task = mongoose.model("Task", taskSchema); // create an object using the sch
 
 // Andrew
 // schema for user created
+var userReg = require('./routes/register');
 var userSchema = new mongoose.Schema({
 	username: String,
 	email: String,
@@ -87,10 +88,10 @@ express()
 			pw: req.body.pw
 		});
 		
-		User.create(newUser, function(err, tasks) {
+		User.create(newUser, function(err, userReg) {
 			if(err) {
 				// reload register page if error
-				return res.redirect('/register')
+				return next(err)
 			} else {
 				// return to index on success
 				return res.redirect('/');
