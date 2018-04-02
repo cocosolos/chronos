@@ -8,7 +8,7 @@ var tasks = require('./routes/tasks');
 var bodyParser = require('body-parser'); // required to parse data from a view
 var mongoose = require("mongoose"); // mongodb framework
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://user:pass@ds125489.mlab.com:25489/heroku_shdsmcw3"); // personal login removed
+mongoose.connect("mongodb://public:public@ds125489.mlab.com:25489/heroku_shdsmcw3"); // personal login removed
 var taskSchema = new mongoose.Schema({ // defines the object to insert in db
  desc: String,
  time: Number,
@@ -76,7 +76,7 @@ express()
 	// Andrew
 	// register users
 	.get('/register', (req, res) => res.render('pages/register'))
-	.post("/addUser", function (req, res) {
+	.post('/addUser', function (req, res) {
 	if (req.body.email &&
 	req.body.username &&
 	req.body.pw) {
@@ -93,7 +93,7 @@ express()
 				return res.redirect('/register')
 			} else {
 				// return to index on success
-				return res.redirect('/)
+				return res.redirect('/');
 			}
 		});
 	}
