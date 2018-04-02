@@ -15,6 +15,30 @@ var taskSchema = new mongoose.Schema({ // defines the object to insert in db
  comp: Boolean
 });
 var Task = mongoose.model("Task", taskSchema); // create an object using the schema
+
+// Andrew
+// schema for user created
+var userSchema = new mongoose.Schema({
+	username: String,
+	email: String,
+	pw: String
+});
+
+// hash the password for each user before entered in the db
+userSchema.pre('validate', function (next) {
+	let user = this;		
+	bcrypt.hash(user.pw, 10, function (err, hash){
+		if (err) {
+			return next(err);
+		}
+		user.pw = hash;
+		next();
+	})
+});
+
+// model called 'users' to be added to db
+let User = mongoose.model('users', userSchema);
+
 //
 
 
@@ -47,5 +71,32 @@ express()
     });
   }
   })
-  //
+  
+  
+	// Andrew
+	// register users
+	.get('/register', (req, res) => res.render('pages/register'))
+	.post("/addUser", function (req, res) {
+	if (req.body.email &&
+	req.body.username &&
+	req.body.pw) {
+		// create newUser to be added to database
+		var newUser = new User({
+			username: req.body.username,
+			email: req.body.email,
+			pw: req.body.pw
+		});
+		
+		User.create(newUser, function(err, tasks) {
+			if(err) {
+				// reload register page if error
+				return res.redirect('/register')
+			} else {
+				// return to index on success
+				return res.redirect('/)
+			}
+		});
+	}
+  })
+  
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
