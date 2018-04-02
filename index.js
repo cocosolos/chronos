@@ -26,8 +26,8 @@ var userSchema = new mongoose.Schema({
 });
 
 // hash the password for each user before entered in the db
-/* userSchema.pre('validate', function (next) {
-	let user = this;
+/*userSchema.pre('validate', function (next) {
+	var user = this;
 	bcrypt.hash(user.pw, 10, function (err, hash){
 		if (err) {
 			return next(err);
@@ -35,10 +35,11 @@ var userSchema = new mongoose.Schema({
 		user.pw = hash;
 		next();
 	})
-}); */
+}); 
+*/
 
 // model called 'users' to be added to db
-let User = mongoose.model('users', userSchema);
+var User = mongoose.model('users', userSchema);
 
 //
 
@@ -88,9 +89,9 @@ express()
 			pw: req.body.pw
 		};
 
-		User.create(newUser, function(err, users) {
-			if(err) {
-				return next(err)
+		User.create(newUser, function(er, users) {
+			if(er) {
+				return next(er)
 			} else {
 				// return to index on success
 				return res.redirect('/');
