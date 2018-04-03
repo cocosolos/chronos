@@ -20,23 +20,21 @@ var Task = mongoose.model("Task", taskSchema); // create an object using the sch
 // schema for user created
 var userReg = require('./routes/register');
 var userSchema = new mongoose.Schema({
-	username: String,
-	email: String,
-	pw: String
+	username: {
+		unique: true,
+		type: String,
+		trim: true
+	},
+	email: {
+		unique: true,
+		type: String,
+		trim: true
+	},
+	pw: {
+		type: String,
+		trim: true
+	}
 });
-
-// hash the password for each user before entered in the db
-/*userSchema.pre('validate', function (next) {
-	var user = this;
-	bcrypt.hash(user.pw, 10, function (err, hash){
-		if (err) {
-			return next(err);
-		}
-		user.pw = hash;
-		next();
-	})
-}); 
-*/
 
 // model called 'users' to be added to db
 var User = mongoose.model('users', userSchema);
