@@ -54,6 +54,8 @@ function setDefault(){
   document.getElementById("customSession").value = sessionTime/60;
   //document.getElementById("customBreak").value = breakTime;
   document.getElementById("customBreak").value = breakTime/60;
+  document.getElementById("currentDesc").innerHTML = "";
+  parent.document.getElementById("clearTask").style.visibility = "hidden";
   var hours = Math.floor((sessionTime/60)/60);
   var minutes = Math.floor((sessionTime/60)%60);
   var seconds = Math.floor(sessionTime % 60);
@@ -185,6 +187,7 @@ function start() {
         if (playSound){
           breakTone.play();
         }
+        markTask(document.getElementById("currentDesc").getAttribute('name'));
         takeBreak();
       }
     }
@@ -225,4 +228,23 @@ function takeBreak() {
       }
     }
   }, 1000); // end of interval
+}
+
+function markTask(id){
+  document.getElementById("currentDesc").setAttribute('name', '');
+  document.getElementById("currentDesc").innerHTML = '';
+  document.getElementById("clearTask").style.visibility = "hidden";
+  var customSession = document.getElementById("customSession").value*60;
+  if (customSession == ''){
+    document.getElementById("customSession").value = defaultSession/60;
+    customSession = document.getElementById("customSession").value*60;
+  }
+  sessionTime = customSession;
+  fetch('comp', {
+    method: 'put',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      'id': id
+    })
+  })
 }

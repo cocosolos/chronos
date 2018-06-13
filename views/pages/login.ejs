@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+    <form method="post" action="/trylogin">
+       Email:<br>
+       <input type="text" name="email" value="" oninput="validity.valid||(value='');" required><br><br>
+			 Password:<br>
+       <input type="password" name="pw" value="" oninput="validity.valid||(value='');" required><br><br>
+       <button type="submit" id="Submit" class="btn btn-default">Log In</button>
+    </form><br>
+    <a href="/register">New? Register here!</a>
+</body>
+</html>
