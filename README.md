@@ -3,8 +3,8 @@
 Make sure you have [Node.js](http://nodejs.org/) installed.
 
 ```sh
-$ git clone https://git.heroku.com/chr0nos.git
-$ cd chr0nos
+$ git clone https://github.com/cocosolos/chronos.git
+$ cd chronos
 $ npm install
 $ npm start
 ```
