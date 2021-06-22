@@ -1,9 +1,11 @@
+This was a school project pomodoro timer with accompanying task keeper.
+
 ## Running Locally
 
-Make sure you have [Node.js](http://nodejs.org/) installed.
+Make sure you have [Node.js](http://nodejs.org/) and [MongoDB](https://www.mongodb.com/) installed.
 
 ```sh
-$ git clone https://github.com/cocosolos/chronos.git
+$ git clone https://gitlab.com/cocosolos/chronos.git
 $ cd chronos
 $ npm install
 $ npm start

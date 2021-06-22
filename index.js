@@ -8,7 +8,7 @@ var bcrypt = require('bcrypt'); // for encrypting passwords
 var session = require('express-session');
 
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://user:pass@ds125489.mlab.com:25489/heroku_shdsmcw3");
+mongoose.connect("mongodb://localhost:27017/chronos", {useNewUrlParser: true});
 
 // Corey
 var taskSchema = new mongoose.Schema({ // defines the object to insert in db
@@ -17,7 +17,7 @@ var taskSchema = new mongoose.Schema({ // defines the object to insert in db
   comp: Boolean,
   uid: {
 	  type: mongoose.Schema.Types.ObjectId,
-	  ref: User
+	  ref: 'User'
   }
 });
 var Task = mongoose.model("Task", taskSchema); // create an object using the schema
