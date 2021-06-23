@@ -1,3 +1,3 @@
-module.exports.index = function(req, res){
-  res.index('register');
+module.exports.index = function (req, res) {
+    res.index('register');
 };

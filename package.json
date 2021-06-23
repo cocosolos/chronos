@@ -25,11 +25,10 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/cocosolos/chronos.git"
   },
   "keywords": [
     "node",
-    "heroku",
     "express"
   ]
 }

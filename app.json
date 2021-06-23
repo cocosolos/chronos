@@ -3,6 +3,6 @@
   "description": "A timer and a task keeper.",
   "repository": "",
   "logo": "",
-  "keywords": ["node", "express", "heroku"],
+  "keywords": ["node", "express"],
   "image": ""
 }

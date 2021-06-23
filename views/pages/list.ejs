@@ -1,46 +1,60 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <% include ../partials/header.ejs %>
 
+<head>
+    <% include ../partials/header.ejs %>
 </head>
 
 <body>
-  <script type="text/javascript">
-    var list = <%- JSON.stringify(listStack) %>;
-  </script>
-<h1>To Do:</h1>
-<table style="word-wrap: break-word; table-layout: fixed; width: 100%;">
-<% for(var i=0; i < listStack.length ; i++) { %>
-    <tr style="border: 1px solid #d5d5d5;">
-      <td style="border: 1px solid #d5d5d5;" id="<%= listStack[i]._id %>"><%= listStack[i].desc %></td>
-      <td width="60px" align="center"><b><%= listStack[i].time %></b><br>minutes</td>
-      <td width="139px"><button type="button" id="set_<%= listStack[i]._id %>" class="btn btn-default" onclick="setTask(<%= i %>);" >Set</button>
-      <button type="button" id="comp_<%= listStack[i]._id %>" class="btn btn-default" onclick="toggleTask('<%= listStack[i]._id %>',false);" ><span class="glyphicon glyphicon-ok"
-        style="color:#09A101;"></span>
-      </button>
-      <button type="button" id="delete" class="btn btn-default" onclick="deleteTask('<%= listStack[i]._id %>');" ><span class="glyphicon glyphicon-trash"
-        style="color:#C50105;"></span>
-      </button></td>
-    </tr>
-<% } %>
-</table>
-
-<h1>Completed:</h1>
-<table style="word-wrap: break-word; table-layout: fixed; width: 100%;">
-  <% for(var i=compStack.length-1; i > -1 ; i--) { %>
-    <tr style="border: 1px solid #d5d5d5;">
-      <td style="border: 1px solid #d5d5d5;"><%= compStack[i].desc %></td>
-      <td width="60px" align="center"><b><%= compStack[i].time %></b><br>minutes</td>
-      <td width="88px"><button type="button" id="comp_<%= compStack[i]._id %>" class="btn btn-default" onclick="toggleTask('<%= compStack[i]._id %>',true);" ><span class="glyphicon glyphicon-ok" style="color:#C50105;"></span>
-            </button>
-            <button type="button" id="delete" class="btn btn-default" onclick="deleteTask('<%= compStack[i]._id %>');" ><span class="glyphicon glyphicon-trash" style="color:#C50105;"></span></button></td>
-    </tr>
-<% } %>
-</table>
-
-<script src="/js/tasks.js"></script>
-
-
+    <script type='text/javascript'>
+        var list = <%- JSON.stringify(listStack) %>;
+    </script>
+    <h1>To Do:</h1>
+    <table style='word-wrap: break-word; table-layout: fixed; width: 100%;'>
+        <% for(var i=0; i < listStack.length ; i++) { %>
+            <tr style='border: 1px solid #d5d5d5;'>
+                <td style='border: 1px solid #d5d5d5;' id='<%= listStack[i]._id %>'>
+                    <%= listStack[i].desc %>
+                </td>
+                <td width='60px' align='center'><b>
+                        <%= listStack[i].time %>
+                    </b><br>minutes</td>
+                <td width='139px'><button type='button' id='set_<%= listStack[i]._id %>' class='btn btn-default'
+                        onclick='setTask(<%= i %>);'>Set</button>
+                    <button type='button' id='comp_<%= listStack[i]._id %>' class='btn btn-default'
+                        onclick='toggleTask("<%= listStack[i]._id %>",false);'><span class='glyphicon glyphicon-ok'
+                            style='color:#09A101;'></span>
+                    </button>
+                    <button type='button' id='delete' class='btn btn-default'
+                        onclick='deleteTask("<%= listStack[i]._id %>");'><span class='glyphicon glyphicon-trash'
+                            style='color:#C50105;'></span>
+                    </button>
+                </td>
+            </tr>
+            <% } %>
+    </table>
+    <h1>Completed:</h1>
+    <table style='word-wrap: break-word; table-layout: fixed; width: 100%;'>
+        <% for(var i=compStack.length-1; i> -1 ; i--) { %>
+            <tr style='border: 1px solid #d5d5d5;'>
+                <td style='border: 1px solid #d5d5d5;'>
+                    <%= compStack[i].desc %>
+                </td>
+                <td width='60px' align='center'><b>
+                        <%= compStack[i].time %>
+                    </b><br>minutes</td>
+                <td width='88px'><button type='button' id='comp_<%= compStack[i]._id %>' class='btn btn-default'
+                        onclick='toggleTask("<%= compStack[i]._id %>",true);'><span class='glyphicon glyphicon-ok'
+                            style='color:#C50105;'></span>
+                    </button>
+                    <button type='button' id='delete' class='btn btn-default'
+                        onclick='deleteTask("<%= compStack[i]._id %>");'><span class='glyphicon glyphicon-trash'
+                            style='color:#C50105;'></span></button>
+                </td>
+            </tr>
+            <% } %>
+    </table>
+    <script src='/js/tasks.js'></script>
 </body>
+
 </html>

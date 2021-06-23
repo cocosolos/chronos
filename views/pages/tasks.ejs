@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <% include ../partials/header.ejs %>
+    <% include ../partials/header.ejs %>
 </head>
 
 <body>
-<br>
-          <form method="post" action="/addtask">
-            Task:<br>
-            <input type="text" name="desc" value="Make a task." oninput="validity.valid||(value='');" required><br><br>
-            Time to complete (in minutes):<br>
-            <input type="number" name="time" value="25" min="1" oninput="validity.valid||(value='');" required><br><br>
-            <p>Complete:</p>
-            <input type="checkbox" name="comp" id="comp" class="cbx hidden"/>
-            <label for="comp" class="lbl"></label><br>
-            <button type="submit" id="save" class="btn btn-default">Save</button>
-            <a href="/list"<button id="cancel" class="btn btn-default">Cancel</button></a>
-          </form>
-
+    <br>
+    <form method='post' action='/addtask'>
+        Task:<br>
+        <input type='text' name='desc' value='Make a task.' oninput='validity.valid||(value="");' required><br><br>
+        Time to complete (in minutes):<br>
+        <input type='number' name='time' value='25' min='1' oninput='validity.valid||(value="");' required><br><br>
+        <p>Complete:</p>
+        <input type='checkbox' name='comp' id='comp' class='cbx hidden' />
+        <label for='comp' class='lbl'></label><br>
+        <button type='submit' id='save' class='btn btn-default'>Save</button>
+        <a href='/list' <button id='cancel' class='btn btn-default'>Cancel</button></a>
+    </form>
 </body>
+
 </html>
